@@ -3,73 +3,167 @@
 <head>
 <title>Test Alcool și MPU</title>
 <style>
+/* Allgemeines Styling */
 body {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: auto;
-    background-color: #f0f0f0;
-    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    background: url('https://cdn.gamma.app/fhpleqvbjim2f32/generated-images/Zs_Y3XvPSWj2xyyEsnomK.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
 }
 
 .container {
-    background-color: white;
+    background: #fffbcc; /* Hellgelber Hintergrund für Inhalte */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 20px auto;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    margin-bottom: 20px;
-    width: 80%;
+    width: 90%;
+    max-width: 800px;
 }
 
+body.dark-mode .container {
+    background: #303841; /* **NEU: Dunkleres Anthrazit mit blauem Unterton** */
+    color: #e0e0e0; /* Hellgrauer Text */
+}
+
+/* Überschriften */
+h1 {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: bold;
+    color: #002288; /* Dunkelblau */
+    background: #cce6ff; /* Hellblauer Hintergrund */
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+body.dark-mode h1 {
+    color: #ffffff; /* Weißer Text */
+    background: #4c516d; /* **NEU: Dunkleres Blau für den Hintergrund** */
+}
+
+/* Buttons */
 button {
-    background-color: #00008B;
-    color: white;
-    padding: 10px 20px;
+    background: linear-gradient(135deg, #0044cc, #002288);
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin: 10px 0;
+    transition: background 0.3s ease;
 }
 
+button:hover {
+    background: #003399;
+}
+
+body.dark-mode button {
+    background: #386641; /* **NEU: Kräftigeres Dunkelgrün** */
+    color: #fff; /* Weißer Text */
+}
+
+/* Listen */
 ul {
-    list-style-type: none;
-    padding: 0;
-    text-align: left;
-    display: none;
+    list-style: none;
+    padding-left: 0;
 }
 
 li {
+    background: #f4f8ff;
+    border-left: 4px solid #0044cc;
+    padding: 10px;
     margin-bottom: 5px;
-    padding: 5px;
-    border-left: 3px solid #00008B;
-    background-color: #e6f2ff;
+    border-radius: 4px;
+    transition: background 0.3s ease;
 }
 
-.raspuns-container {
-    margin-top: 10px;
+li:hover {
+    background: #e6f0ff;
 }
 
-.video-container { /* Added styles for the video container */
-    display: none;  /* Initially hidden */
+body.dark-mode li {
+    background: #4a4a4a; /* **NEU: Dunkleres Grau** */
+    border-left: 4px solid #61a5c2; /* **NEU: Heller blauer Rand** */
+    color: #fff; /* Weißer Text */
+}
+
+/* Video-Container */
+.video-container {
     margin-top: 20px;
-    text-align: center; /* Center the video */
+    text-align: center;
 }
 
 .video-container iframe {
-  display: block; /* Make the iframe a block element to center it */
-  margin-left: auto;
-  margin-right: auto;
+    width: 100%;
+    border-radius: 8px;
 }
+
+/* Audio-Container */
+.audio-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.audio-container audio {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+body.dark-mode .dark-mode-toggle {
+    background: #6b705c; /* **NEU:  Etwas helleres Grau/Grün** */
+    color: #fff;
+}
+
+/* Responsives Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+    h1 {
+        font-size: 20px;
+    }
+    button {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+}
+
 </style>
 </head>
 <body>
 
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
+
 <div class="container">
     <h1>Test Reacție - Alcool</h1>
     <button id="intrebare4">Ce efecte are alcoolul asupra capacității de conducere?</button>
-    <ul id="raspunsuri4" style="display: none;">
+    <ul id="raspunsuri4">
         <li>Reacție slabă, vedere tunel.</li>
         <li>Mai mult preocupat de sine, mai puțin concentrat.</li>
         <li>Distanțele nu mai pot fi estimate corect.</li>
@@ -77,27 +171,24 @@ li {
         <li>Mai ales periculos pentru că nu sunt asigurat dacă fac accident sub influența alcoolului.</li>
     </ul>
 </div>
-
 <div class="container">
     <h1>Test Dependent - Alcool</h1>
     <button id="intrebare1">Ce vorbește împotriva faptului că nu erați dependent de alcool?</button>
-    <ul id="raspunsuri1" style="display: none;">
-      <li>Nu am avut probleme de sevraj, deci probleme fizice!</li>
-      <li>M-am oprit fără ajutor.</li>
-      <li>Nu am băut cantități mari în timpul săptămânii.</li>
-      <li>Nu am băut nimic dimineața.</li>
-      <li>Mi-am respectat Terminele.</li>
-      <li>Nu am fost în spital, nu am făcut Terapie.</li>
+    <ul id="raspunsuri1">
+        <li>Nu am avut probleme de sevraj, deci probleme fizice!</li>
+        <li>M-am oprit fără ajutor.</li>
+        <li>Nu am băut cantități mari în timpul săptămânii.</li>
+        <li>Nu am băut nimic dimineața.</li>
+        <li>Mi-am respectat Terminele.</li>
+        <li>Nu am fost în spital, nu am făcut Terapie.</li>
     </ul>
 </div>
 
 <div class="container">
     <h1>Situații Riscante și Strategii</h1>
-    <div class="button-container">
-        <button id="intrebare5">Care ar fi Situațiile Riscante?</button>
-    </div>
-    <ul id="raspunsuri5" style="display:none;">
-        <li>
+    <button id="intrebare5">Care ar fi Situațiile Riscante?</button>
+    <ul id="raspunsuri5">
+            <li>
                 <b>Crize de viață</b> (moartea unei persoane dragi, boli grave, pierderea locului de muncă, etc.)<br>
                 <i>Strategie:</i> Mă bazez pe sprijinul familiei și al prietenilor apropiați. Caut ajutor emoțional sau profesional dacă este necesar. Nu folosesc alcoolul ca metodă de consolare, ci mă concentrez pe soluții sănătoase, cum ar fi exercițiile fizice, meditația sau discuțiile cu persoane de încredere. Privesc înainte și continui să trăiesc.
             </li>
@@ -125,75 +216,77 @@ li {
                 <b>Presiunea socială într-un cerc nou de prieteni:</b><br>
                 <i>Strategie:</i> Atunci când întâlnesc persoane noi, sunt sincer de la început: „Nu consum alcool, am luat această decizie pentru mine.” Ofer această informație calm și încrezător, prevenind astfel presiunile viitoare.
             </li>
-    </ul>
-    <div id="video-container" class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/ys7vNuesTcM?si=Z2jfGDZoe5GhLZhQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </ul>
+           <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ys7vNuesTcM" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="audio-container">
+        <h3>Ascultă Podcast-ul MPU Pregătire</h3>
+        <audio controls>
+            <source src="SituatiiRiscante.mp3" type="audio/mpeg">
+            Browser-ul tău nu suportă redarea audio.
+        </audio>
     </div>
 </div>
 
 <div class="container">
     <h1>MPU - Recidivă</h1>
-    <button id="intrebare2">Unde vedeți riscul de recidivă "a face același delict din nou"? De ce este Riscul de recidivă minimal?</button>
-    <div class="raspuns-container">
-        <ul id="raspunsuri2" style="display: none;">
-            <li>În viitor, vreau să respect legea, pentru că nu mai vreau să pun viața nimănui în pericol. Desigur, nimeni nu poate da 100%.</li>
-            <li>Riscul este minimal pentru că:</li> 
-                
-                    <li>Astăzi vorbesc cu alții (nevasta, familia care mă sprijină) despre problemele mele cât mai curând posibil.</li>
-                    <li>Am un loc de muncă nou, prieteni noi, am mai mult timp pentru hobbyurile mele! Nu mă mai arăt permanent puternic, pot să arăt că sunt și slab.</li>
-                    <li>Am învățat să spun "Nu", nu le mai fac pe plac la toți!</li>
-                    <li>Cunosc Situațiile Riscante, știu despre dorința mea de a fi acceptat și de a aparține, îmi cunosc cauzele consumului!</li>
-                    </ul>
-    </div>
+    <button id="intrebare2">Unde vedeți riscul de recidivă?</button>
+    <ul id="raspunsuri2">
+        <li>Astăzi vorbesc cu alții (nevasta, familia care mă sprijină) despre problemele mele cât mai curând posibil.</li>
+        <li>Am un loc de muncă nou, prieteni noi, am mai mult timp pentru hobbyurile mele! Nu mă mai arăt permanent puternic, pot să arăt că sunt și slab.</li>
+        <li>Am învățat să spun "Nu", nu le mai fac pe plac la toți!</li>
+        <li>Cunosc Situațiile Riscante, știu despre dorința mea de a fi acceptat și de a aparține, îmi cunosc cauzele consumului!</li>
+    </ul>
 </div>
-
 
 <div class="container">
     <h1>MPU - Pregătire</h1>
     <button id="intrebare3">Ce ați învățat în timpul pregătirii MPU?</button>
-    <ul id="raspunsuri3" style="display: none;">
-      <li>Am vorbit despre delicte, l-am analizat și am găsit greșelile mele:</li>
-      <ul>
-        <li>Greșeli: Am crezut că nu voi fi prins! Am fost un Egoist! Nu am respectat legea: Am condus sub influența alcoolului! Am fost un pericol pentru mine și pentru alții!</li>
-      </ul>
-      <li>Cunosc cauzele consumului meu, dorința mea de recunoaștere și apartenență!</li>
-      <li>Știu că alcoolul este otravă pentru nervi și celule, este dăunător sănătății. Poate duce la dependență. Cu fiecare intoxicație, celulele creierului mor.</li>
-      <li>Consumul regulat de băut duce la o memorie slabă și la scăderea inteligenței.</li>
-      <li>Știu ce este memoria dependenței (creierul își va aminti întotdeauna nivelurile maxime).</li>
-      <li>Știu ce înseamnă creșterea toleranței (alcoolul devine din ce în ce mai mult).</li>
-      <li>Știu ce este consumul excesiv de alcool, atunci când cinci sau mai multe pahare de alcool sunt băute de o dată.</li>
-      <li>Riscul de a comite un delict identic nu poate fi exclus.</li>
-      <li>Am discutat despre avantaje și dezavantaje. Sunt pregătit pentru viitor.</li>
+    <ul id="raspunsuri3">
+        <li>Am vorbit despre delicte, l-am analizat și am găsit greșelile mele:</li>
+        <ul>
+            <li>Greșeli: Am crezut că nu voi fi prins! Am fost un Egoist! Nu am respectat legea: Am condus sub influența alcoolului! Am fost un pericol pentru mine și pentru alții!</li>
+        </ul>
+        <li>Cunosc cauzele consumului meu, dorința mea de recunoaștere și apartenență!</li>
+        <li>Știu că alcoolul este otravă pentru nervi și celule, este dăunător sănătății. Poate duce la dependență. Cu fiecare intoxicație, celulele creierului mor.</li>
+        <li>Consumul regulat de băut duce la o memorie slabă și la scăderea inteligenței.</li>
+        <li>Știu ce este memoria dependenței (creierul își va aminti întotdeauna nivelurile maxime).</li>
+        <li>Știu ce înseamnă creșterea toleranței (alcoolul devine din ce în ce mai mult).</li>
+        <li>Știu ce este consumul excesiv de alcool, atunci când cinci sau mai multe pahare de alcool sunt băute de o dată.</li>
+        <li>Riscul de a comite un delict identic nu poate fi exclus.</li>
+        <li>Am discutat despre avantaje și dezavantaje. Sunt pregătit pentru viitor.</li>   
     </ul>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    function showHideAnswer(buttonId, listId, videoId = null) {
+    function toggleList(buttonId, listId) {
         const button = document.getElementById(buttonId);
         const list = document.getElementById(listId);
-        const videoContainer = videoId ? document.getElementById(videoId) : null;
-
         button.addEventListener('click', function () {
-            if (list.style.display === 'none') {
-                list.style.display = 'block';
-                if (videoContainer) {
-                    videoContainer.style.display = 'block';
-                }
-            } else {
-                list.style.display = 'none';
-                if (videoContainer) {
-                    videoContainer.style.display = 'none';
-                }
-            }
+            list.style.display = list.style.display === 'none' ? 'block' : 'none';
         });
     }
 
-    showHideAnswer('intrebare1', 'raspunsuri1');
-    showHideAnswer('intrebare4', 'raspunsuri4');
-    showHideAnswer('intrebare5', 'raspunsuri5', 'video-container');
-    showHideAnswer('intrebare2', 'raspunsuri2');
-    showHideAnswer('intrebare3', 'raspunsuri3');
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+
+        const toggleButton = document.querySelector('.dark-mode-toggle');
+        if (document.body.classList.contains('dark-mode')) {
+            toggleButton.textContent = 'Light Mode';
+        } else {
+            toggleButton.textContent = 'Dark Mode';
+        }
+    }
+
+    toggleList('intrebare1', 'raspunsuri1');
+    toggleList('intrebare2', 'raspunsuri2');
+    toggleList('intrebare3', 'raspunsuri3');
+    toggleList('intrebare4', 'raspunsuri4');
+    toggleList('intrebare5', 'raspunsuri5');
+
+    document.querySelector('.dark-mode-toggle').addEventListener('click', toggleDarkMode);
 });
 </script>
 </body>
